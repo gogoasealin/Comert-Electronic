@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"] - DonutShop</title>
+
+    <script src="~/js/ClickHandler.js" asp-append-version="true"></script>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/Body.css" />
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+</head>
+<body>
+    <script>
+        var clickHandler = new clickHandler();
+        var product = clickHandler.getAllProduct();
+        product.done(
+            function (response) {
+                for (var i = 0; i < response.length; i++) {
+                    var ActionU = '@Url.Action("CurrentProduct", "CurrentProduct")';
+                    $("#productGrid").append('<div style="display: inline-block; padding-right:10px;" class="image-main-section"><form action="http://localhost:50209/api/cart/Add" method="get"><div class="img-part"><div class="img-section"><img src="/images/' + response[i].image + '"></div><div class="image-title"><h3><a class="styleless-link" href="' + ActionU + '?productName=' + response[i].name + '">' + response[i].name + '</a></h3></div><div><input type="hidden" readonly name="gameName" value="' + response[i].name + '"></div> <div class="image-description"><p>$' + response[i].keyPrice + '</p></div><div><input type="submit" class="btn btn-warning add-cart-btn" value="ADD TO CART"></div></form></div>'.replace("PN", response[i].name));
+                }
+            });
+    </script>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid" >
+            <a id="noUnderline" style="position:absolute;" asp-area="" asp-controller="Home" asp-action="Index"> <img src="~/images/118.png"></a>
+            <div class="navbar-collapse collapse menuButtons">
+                <a asp-area="" asp-controller="Home" asp-action="Menu" >Menu</a>
+                <a asp-area="" asp-controller="Home" asp-action="ShoppingCart">ShoppingCart</a>
+                <a asp-area="" asp-controller="Home" asp-action="Login">Login</a>
+                <a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+    <partial name="_CookieConsentPartial" />
+
+    <div class="container-fluid body-content no-padding">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p class="web-text">&copy; 2018 - DonutShop</p>
+        </footer>
+    </div>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/Body.css" />
+        <script src="~/js/ClickHandler.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
