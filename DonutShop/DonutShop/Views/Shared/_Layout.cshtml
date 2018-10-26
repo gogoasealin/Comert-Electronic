@@ -19,11 +19,13 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
-    <script>
-        var clickHandler = new clickHandler();
-        var product = clickHandler.getAllProduct();
+    @*<script>
+        var clickHandler = new ClickHandler();
+        var product = clickHandler.getAllProducts();
         product.done(
             function (response) {
                 for (var i = 0; i < response.length; i++) {
@@ -31,16 +33,17 @@
                     $("#productGrid").append('<div style="display: inline-block; padding-right:10px;" class="image-main-section"><form action="http://localhost:50209/api/cart/Add" method="get"><div class="img-part"><div class="img-section"><img src="/images/' + response[i].image + '"></div><div class="image-title"><h3><a class="styleless-link" href="' + ActionU + '?productName=' + response[i].name + '">' + response[i].name + '</a></h3></div><div><input type="hidden" readonly name="gameName" value="' + response[i].name + '"></div> <div class="image-description"><p>$' + response[i].keyPrice + '</p></div><div><input type="submit" class="btn btn-warning add-cart-btn" value="ADD TO CART"></div></form></div>'.replace("PN", response[i].name));
                 }
             });
-    </script>
+    </script>*@
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container-fluid" >
+        <div class="container-fluid">
             <a id="noUnderline" style="position:absolute;" asp-area="" asp-controller="Home" asp-action="Index"> <img src="~/images/118.png"></a>
             <div class="navbar-collapse collapse menuButtons">
-                <a asp-area="" asp-controller="Home" asp-action="Menu" >Menu</a>
+                <a asp-area="" asp-controller="Home" asp-action="Menu">Menu</a>
                 <a asp-area="" asp-controller="Home" asp-action="ShoppingCart">ShoppingCart</a>
-                <a asp-area="" asp-controller="Home" asp-action="Login">Login</a>
                 <a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
+                <button class="w3-button w3-black menuButtons" onclick="document.getElementById('id01').style.display='block'">Login</button>
+                <a asp-area="" asp-controller="Home" asp-action="AdminPanel">AdminPanel</a>
             </div>
         </div>
     </nav>
@@ -53,6 +56,32 @@
             <p class="web-text">&copy; 2018 - DonutShop</p>
         </footer>
     </div>
+
+    <div class="w3-container">
+
+        <div id="id01" class="w3-modal">
+            <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+
+                <div class="w3-center">
+                    <br>
+                    <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+                    <img src="~/images/118.png" alt="Avatar" style="width:30%" class="w3-circle w3-margin-top">
+                </div>
+
+                <form class="w3-container" action="/action_page.php">
+                    <div class="w3-section">
+                        <label><b>Username</b></label>
+                        <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Username" name="usrname" required>
+                        <label><b>Password</b></label>
+                        <input class="w3-input w3-border" type="password" placeholder="Enter Password" name="psw" required>
+                        <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">Login</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
 
     <environment include="Development">
         <link rel="stylesheet" href="~/css/site.css" />

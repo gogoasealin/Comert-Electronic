@@ -32,6 +32,11 @@ namespace DonutShop.Controllers
             return View();
         }
 
+        public IActionResult AdminPanel()
+        {
+            return View();
+        }
+
         public IActionResult Contact()
         {
             return View();
