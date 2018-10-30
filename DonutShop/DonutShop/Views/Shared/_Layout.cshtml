@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -7,7 +9,10 @@
     <title>@ViewData["Title"] - DonutShop</title>
 
     <script src="~/js/ClickHandler.js" asp-append-version="true"></script>
-
+    <script src="~/lib/signalr/signalr.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cssmapsplugin.com/5/jquery.cssmap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <environment include="Development">
         <link rel="stylesheet" href="~/css/site.css" />
         <link rel="stylesheet" href="~/css/Body.css" />
@@ -23,17 +28,19 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
+    <div>@Html.Raw(TempData["msg"])</div>
+    
     @*<script>
-        var clickHandler = new ClickHandler();
-        var product = clickHandler.getAllProducts();
-        product.done(
-            function (response) {
-                for (var i = 0; i < response.length; i++) {
-                    var ActionU = '@Url.Action("CurrentProduct", "CurrentProduct")';
-                    $("#productGrid").append('<div style="display: inline-block; padding-right:10px;" class="image-main-section"><form action="http://localhost:50209/api/cart/Add" method="get"><div class="img-part"><div class="img-section"><img src="/images/' + response[i].image + '"></div><div class="image-title"><h3><a class="styleless-link" href="' + ActionU + '?productName=' + response[i].name + '">' + response[i].name + '</a></h3></div><div><input type="hidden" readonly name="gameName" value="' + response[i].name + '"></div> <div class="image-description"><p>$' + response[i].keyPrice + '</p></div><div><input type="submit" class="btn btn-warning add-cart-btn" value="ADD TO CART"></div></form></div>'.replace("PN", response[i].name));
-                }
-            });
-    </script>*@
+            var clickHandler = new ClickHandler();
+            var product = clickHandler.getAllProducts();
+            product.done(
+                function (response) {
+                    for (var i = 0; i < response.length; i++) {
+                        var ActionU = '@Url.Action("CurrentProduct", "CurrentProduct")';
+                        $("#productGrid").append('<div style="display: inline-block; padding-right:10px;" class="image-main-section"><form action="http://localhost:50209/api/cart/Add" method="get"><div class="img-part"><div class="img-section"><img src="/images/' + response[i].image + '"></div><div class="image-title"><h3><a class="styleless-link" href="' + ActionU + '?productName=' + response[i].name + '">' + response[i].name + '</a></h3></div><div><input type="hidden" readonly name="gameName" value="' + response[i].name + '"></div> <div class="image-description"><p>$' + response[i].keyPrice + '</p></div><div><input type="submit" class="btn btn-warning add-cart-btn" value="ADD TO CART"></div></form></div>'.replace("PN", response[i].name));
+                    }
+                });
+        </script>*@
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
@@ -42,7 +49,8 @@
                 <a asp-area="" asp-controller="Home" asp-action="Menu">Menu</a>
                 <a asp-area="" asp-controller="Home" asp-action="ShoppingCart">ShoppingCart</a>
                 <a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
-                <button class="w3-button w3-black menuButtons" onclick="document.getElementById('id01').style.display='block'">Login</button>
+                <button class="w3-button w3-black menuButtons" onclick="document.getElementById('id01').style.display = 'block';">Login</button>
+                <span id="loggedInUser">UserId</span>
                 <a asp-area="" asp-controller="Home" asp-action="AdminPanel">AdminPanel</a>
             </div>
         </div>
@@ -64,20 +72,19 @@
 
                 <div class="w3-center">
                     <br>
-                    <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+                    <span onclick="document.getElementById('id01').style.display = 'none';" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
                     <img src="~/images/118.png" alt="Avatar" style="width:30%" class="w3-circle w3-margin-top">
                 </div>
 
-                <form class="w3-container" action="/action_page.php">
+                <form class="w3-container" id="loginform">
                     <div class="w3-section">
                         <label><b>Username</b></label>
-                        <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Username" name="usrname" required>
+                        <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Username" name="user" required>
                         <label><b>Password</b></label>
-                        <input class="w3-input w3-border" type="password" placeholder="Enter Password" name="psw" required>
-                        <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">Login</button>
+                        <input class="w3-input w3-border" type="password" placeholder="Enter Password" name="password" required>
+                        <input type="button" value="Login" onclick="Login();" class="w3-button w3-block w3-green w3-section w3-padding" />
                     </div>
                 </form>
-
             </div>
         </div>
     </div>
@@ -108,5 +115,6 @@
     </environment>
 
     @RenderSection("Scripts", required: false)
+
 </body>
 </html>

@@ -19,10 +19,18 @@ body {
     
 }
 
+.admin-buttons {
+    text-align:center !important; 
+}
+
+.glyphicon{
+    color:black ;
+    font-size: 60px;
+}
 
 .menuButtons:hover {
     color: gray !important;
-    background-color:black !important;
+    background-color: black !important;
     text-decoration: none;
 }
 
@@ -41,9 +49,6 @@ a:hover {
 
 /* first page*/
 
-.dive{
-
-}
 
 .frontImage {
     width: 100%;
@@ -53,17 +58,7 @@ a:hover {
     text-align: left;
 }
 
-.frontTitle{
 
-}
-
-.frontDescription{
-
-}
-
-.FrontPage {
-
-}
 /* Menu*/
 
 .ProductImage {
@@ -124,7 +119,7 @@ a:hover {
     }
 
     .item.list-group-item .thumbnail {
-        margin-bottom: 0px;
+        margin-bottom: 0;
     }
 
     .item.list-group-item .caption {

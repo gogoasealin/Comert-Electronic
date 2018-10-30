@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DonutShop.Context;
 using DonutShop.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,18 +13,22 @@ namespace DonutShop.Controllers
     [Route("api/[controller]/[action]")]
     public class ProductsController : Controller
     {
-        private const string ControllerName = "Home";
-        private ProductDBContext db;
+        private const string ControllerName = "Products";
 
-        public ProductsController(ProductDBContext db)
-        {
-            this.db = db;
-        }
-
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet]
         [ActionName("GetProducts")]
         public void GetProducts()
         {
+        }
+
+        // product service si mut toata logica acolo 
+        // apelze din controlul de products
+        // in service tin contextul
+        // dependency injection
+
+        public IActionResult Check()
+        {
+            return RedirectToAction("Index", "Home");
         }
 
 

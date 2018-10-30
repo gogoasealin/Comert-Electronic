@@ -32,18 +32,5 @@ namespace DonutShop.Models
 
     }
 
-    public class ProductDBContext : DbContext
-    {
-        public ProductDBContext(DbContextOptions<ProductDBContext> options) : base(options)
-        {
-        }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Product>().ToTable("Products");
-        }
-
-        public DbSet<Product> Games { get; set; }
-    }
 }

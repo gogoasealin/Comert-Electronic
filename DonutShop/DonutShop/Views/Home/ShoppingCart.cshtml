@@ -3,4 +3,56 @@
 }
 <h2>@ViewData["Title"]</h2>
 
+<!DOCTYPE html>
+<html>
+
+<body>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-10 col-md-offset-1">
+                <table style="color:black" class="table">
+                    <thead>
+                        <tr style="color:black">
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th class="text-center">Price</th>
+                            <th class="text-center">Total</th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+                    <tbody id="cartProducts"></tbody>
+                    <tfoot>
+                        <tr>
+                            <td>   </td>
+                            <td>   </td>
+                            <td>   </td>
+                            <td><h3 id="totalAmount">Total : </h3></td>
+                        </tr>
+                        <tr>
+                            <td>   </td>
+                            <td>   </td>
+                            <td>   </td>
+                            <td>
+                                <button type="button" class="btn btn-default" onclick="goBack()">
+                                    <span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#Checkout">
+                                    Checkout <span class="glyphicon glyphicon-play"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
 
