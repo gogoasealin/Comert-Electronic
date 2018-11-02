@@ -8,11 +8,13 @@
 
     <title>@ViewData["Title"] - DonutShop</title>
 
-    <script src="~/js/ClickHandler.js" asp-append-version="true"></script>
+
     <script src="~/lib/signalr/signalr.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cssmapsplugin.com/5/jquery.cssmap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="~/js/ClickHandler.js" asp-append-version="true"></script>
     <environment include="Development">
         <link rel="stylesheet" href="~/css/site.css" />
         <link rel="stylesheet" href="~/css/Body.css" />
@@ -28,8 +30,7 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
-    <div>@Html.Raw(TempData["msg"])</div>
-    
+
     @*<script>
             var clickHandler = new ClickHandler();
             var product = clickHandler.getAllProducts();
@@ -49,9 +50,10 @@
                 <a asp-area="" asp-controller="Home" asp-action="Menu">Menu</a>
                 <a asp-area="" asp-controller="Home" asp-action="ShoppingCart">ShoppingCart</a>
                 <a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
-                <button class="w3-button w3-black menuButtons" onclick="document.getElementById('id01').style.display = 'block';">Login</button>
-                <span id="loggedInUser">UserId</span>
-                <a asp-area="" asp-controller="Home" asp-action="AdminPanel">AdminPanel</a>
+                <button id="login" type="button" class="w3-button w3-black menuButtons" onclick="document.getElementById('id01').style.display = 'block';">Login</button>
+                <span id="loggedInUser"></span>
+                <a asp-area="" asp-controller="Home" asp-action="AdminPanel" id="admin">AdminPanel</a>
+                <span id="logOut"></span>
             </div>
         </div>
     </nav>
@@ -76,6 +78,7 @@
                     <img src="~/images/118.png" alt="Avatar" style="width:30%" class="w3-circle w3-margin-top">
                 </div>
 
+
                 <form class="w3-container" id="loginform">
                     <div class="w3-section">
                         <label><b>Username</b></label>
@@ -85,6 +88,8 @@
                         <input type="button" value="Login" onclick="Login();" class="w3-button w3-block w3-green w3-section w3-padding" />
                     </div>
                 </form>
+                <div id="dialog" title="Window title">
+                </div>
             </div>
         </div>
     </div>

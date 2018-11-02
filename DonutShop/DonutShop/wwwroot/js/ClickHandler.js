@@ -20,77 +20,84 @@
     ClickHandler.instance = this;
 }
 
-// When the user scrolls the page, execute myFunction 
-window.onscroll = function () { myFunction();};
+function HideLogin()
+{
+    document.getElementById('id01').style.display = 'none';
+}
 
-// Get the header
-var header = document.getElementById("myHeader");
 
-// Get the offset position of the navbar
-//var sticky = header.offsetTop;
+function DialogBox() {
+    //$("#dialog").append('var retVal = confirm("Do you want to continue ?");if (retVal == true) {document.write("User wants to continue!");return true;}else {document.write("User does not want to continue!");return false;}')
+    //document.getElementById('id01').style.display = 'none';
+    $("#dialog").append('<form class="w3-container" id="loginform"><div class="w3-section"><label><b>The Account donut exist do you want to create one ?</b></label><input type="button" value="Yes" onclick="Register();" class="w3-button w3-block w3-green w3-section w3-padding" /></div></form>');
+}
 
-// Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
-function myFunction() {
-    if (window.pageYOffset > sticky) {
-        header.classList.add("sticky");
-    } else {
-        header.classList.remove("sticky");
-    }
+function Post(data, url) {
+    return $.ajax({
+        type: "POST",
+        url: url,
+        dataType: "text",
+        contentType: "application/json",
+        data: JSON.stringify(data),
+
+        failure: function (errMsg) {
+            alert(errMsg);
+        }
+    });
+
 }
 
 function Login() {
     var loginDate = JSON.stringify($(loginform).serializeArray());
     loginDate = JSON.parse(loginDate);
 
-    $.ajax({
-        type: "POST",
-        url: 'https://localhost:44371/api/Users/Login',
-        dataType: "json",
-        contentType: "application/json",
-        data: JSON.stringify({ userLogin: loginDate}),
-
-        failure: function (errMsg) {
-            alert(errMsg);
-        }
-    });
+    var result = Post(loginDate, 'https://localhost:44371/api/Users/Login');
+    result.done(
+        function (response) {
+            if (response == "Fail") {
+                DialogBox();
+            } else {
+                LoginApply(loginDate[0]["value"]);
+            }
+        });   
 }
 
-function CreateAccountBox() {
-    $('<div title="Confirm Box"></div>').dialog({
-        open: function (event, ui) {
-            $(this).html("The Account donsn't exist do you want to create one?");
-        },
-        close: function () {
-            $(this).remove();
-        },
-        resizable: true,
-        height: 140,
-        modal: true,
-        buttons: {
-            'Yes': function () {
-                $(this).dialog('close');
-                var loginDate = JSON.stringify($(loginform).serializeArray());
-                loginDate = JSON.parse(loginDate);
+function Register() {
+    var loginDate = JSON.stringify($(loginform).serializeArray());
+    loginDate = JSON.parse(loginDate);
 
-                $.ajax({
-                    type: "POST",
-                    url: 'https://localhost:44371/api/Users/Register',
-                    dataType: "json",
-                    contentType: "application/json",
-                    data: JSON.stringify({ userLogin: loginDate }),
-                    success: function (data) {
-                        alert(data);
-                    },
-                    failure: function (errMsg) {
-                        alert(errMsg);
-                    }
-                });
+    var result = Post(loginDate, 'https://localhost:44371/api/Users/Register');
+    result.done(
+        function (response) {
+            HideLogin();
+            Login();// ce se intampla dupa login
+        }
+        );
+}
 
-            },
-            'No': function () {
-                $(this).dialog('close');
+function LoginApply(id) {
+    if ($("#loggedInUser").empty()) {
+        $("#loggedInUser").append(id);
+    }
+    document.getElementById('id01').style.display = 'none';
+    $("#login").hide();
+    var accesLevel = Post(id, 'https://localhost:44371/api/Users/GetAccesLevel');
+    accesLevel.done(
+        function(response) {
+            var acces = response;
+            if (acces == "0") {
+                $("#admin").hide();
             }
         }
-    });
+    )
+
+    //AdminState(acces);
+    //$("#logOut").append(' <a asp-area="" asp-controller="Home" asp-action="AdminPanel"><span class="glyphicon glyphicon-log-out"> </span></a>');
 }
 
+//function AdminState(acces) {
+//    if (acces == 0) {
+//        $("#admin").hide();
+//    }
+//    //get admin state 
+//}

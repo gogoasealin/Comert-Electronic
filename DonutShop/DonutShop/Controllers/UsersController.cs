@@ -13,7 +13,7 @@ namespace DonutShop.Controllers
     public class UsersController : Controller
     {
         DonutShopDBContext db;
-
+        protected string AccesLevel { get { return AccesLevel; } set {} }
 
         public UsersController(DonutShopDBContext db)
         {
@@ -22,22 +22,23 @@ namespace DonutShop.Controllers
 
         [HttpPost]
         [ActionName("Login")]
-        public IActionResult Login([FromBody]dynamic userLogin)
+        public string Login([FromBody]dynamic userLogin)
         {
-            string ID = userLogin["userLogin"][0]["value"].ToString(); 
-            string Password = userLogin["userLogin"][1]["value"].ToString();
-            User _user = new User(ID, Password);
+            string ID = userLogin[0]["value"].ToString(); 
+            string Password = userLogin[1]["value"].ToString();
+            User _user = new User(ID, Password, "0");
 
             var users = db.Users; 
              foreach (var user in users)
             {
                 if(ID == user.ID)
                 {
+                    return "Succes";
                     //logged   
-                    return RedirectToAction("Index", "Home");
+                    //return RedirectToAction("Index", "Home");
                 }
             }
-
+            return "Fail";
             //TempData["msg"] = "<script>alert('Incorrect username and password');</script>";
             //ViewBag.HtmlStr = "<script>alert('Incorrect username and password');</script>";
             //return Json(new
@@ -45,7 +46,7 @@ namespace DonutShop.Controllers
             //    redirectUrl = RedirectToAction("Login")
             //});
 
-           return RedirectToAction("Contact", "Home"); /// ce ar trebui sa returnez?
+           //return RedirectToAction("Contact", "Home"); /// ce ar trebui sa returnez?
                                                         /// 
         }
 
@@ -54,9 +55,8 @@ namespace DonutShop.Controllers
         [ActionName("Register")]
         public IActionResult Register([FromBody]dynamic userLogin)
         {
-            Console.WriteLine(userLogin);
-            string ID = userLogin["userLogin"][0]["value"].ToString();
-            string Password = userLogin["userLogin"][1]["value"].ToString();
+            string ID = userLogin[0]["value"].ToString();
+            string Password = userLogin[1]["value"].ToString();
             User _user = new User(ID, Password);
 
             db.Users.Add(_user);
@@ -64,6 +64,17 @@ namespace DonutShop.Controllers
 
             return RedirectToAction("Index", "Home");
 
+        }
+
+        [HttpPost]
+        [ActionName("GetAccesLevel")]
+        public string GetAccesLevel([FromBody]dynamic userEmail)
+        {
+            string userMail = userEmail.ToString();
+            var AccesLevel = db.Users
+                .Where(user => user.ID.Equals(userMail))
+                .FirstOrDefault().Administrator;
+            return AccesLevel;
         }
     }
 }

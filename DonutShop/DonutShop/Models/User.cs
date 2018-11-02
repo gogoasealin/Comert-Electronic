@@ -11,15 +11,13 @@ namespace DonutShop.Models
         [Key]
         public string ID { get; set; }
         public string Password { get; set; }
+        public string Administrator { get; set; }
 
-
-        // GET: /<controller>/
-        //public User() { }
-
-        public User(string ID, string Password)
+        public User(string ID, string Password, string Administrator = "0")
         {
             this.ID = ID;
             this.Password = Password;
+            this.Administrator = Administrator;
         }
     }
 }
