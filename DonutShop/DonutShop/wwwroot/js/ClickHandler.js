@@ -76,23 +76,54 @@ function Register() {
 }
 
 function LoginApply(id) {
-    if ($("#loggedInUser").empty()) {
-        $("#loggedInUser").append(id);
-    }
-    document.getElementById('id01').style.display = 'none';
-    $("#login").hide();
-    var accesLevel = Post(id, 'https://localhost:44371/api/Users/GetAccesLevel');
-    accesLevel.done(
-        function(response) {
-            var acces = response;
-            if (acces == "0") {
-                $("#admin").hide();
-            }
-        }
-    )
-
+    GetSignedInUser(id);
+   
     //AdminState(acces);
     //$("#logOut").append(' <a asp-area="" asp-controller="Home" asp-action="AdminPanel"><span class="glyphicon glyphicon-log-out"> </span></a>');
+    
+}
+
+function GetSignedInUser(id){
+    var result = $.ajax({
+        type: "POST",
+        url: '/api/users/GetLoggedInUser',
+        dataType: "text",
+        contentType: "application/json",
+    });
+    result.done(
+        function (response) {
+            if ($("#loggedInUser").empty()) {
+                if (response != null) {
+                    $("#loggedInUser").append(response);
+                    document.getElementById('id01').style.display = 'none';
+                    $("#login").hide();
+                    var accesLevel = Post(id, 'https://localhost:44371/api/Users/GetAccesLevel');
+                    accesLevel.done(
+                        function (response) {
+                            var acces = response;
+                            if (acces == "1" || acces =="2") {
+                                $("#admin").show();
+                            }
+                        }
+                    )
+                    $("#logOut").show();
+                }
+
+            }  
+        }
+    );   
+}
+
+function logout() {
+    var authorityToken = "";
+    var fullUrl = 'http://localhost:50209/api/users/LogOut';
+    return $.ajax({
+        url: fullUrl,
+        headers: {
+            "Authority": authorityToken
+        },
+        dataType: "json"
+    });
 }
 
 //function AdminState(acces) {

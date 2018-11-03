@@ -33,6 +33,7 @@ namespace DonutShop.Controllers
             {
                 if(ID == user.ID)
                 {
+                    HttpContext.Session.SetString("loggedInUser", ID);
                     return "Succes";
                     //logged   
                     //return RedirectToAction("Index", "Home");
@@ -70,11 +71,47 @@ namespace DonutShop.Controllers
         [ActionName("GetAccesLevel")]
         public string GetAccesLevel([FromBody]dynamic userEmail)
         {
-            string userMail = userEmail.ToString();
-            var AccesLevel = db.Users
-                .Where(user => user.ID.Equals(userMail))
-                .FirstOrDefault().Administrator;
-            return AccesLevel;
+            if(userEmail != null)
+            {
+                string userMail = userEmail.ToString();
+                var AccesLevel = db.Users
+                    .Where(user => user.ID.Equals(userMail))
+                    .FirstOrDefault().Administrator;
+                return AccesLevel;
+            }
+            var name = HttpContext.Session.GetString("loggedInUser");
+            if (name != null)
+            {
+                string userMail = name;
+                var AccesLevel = db.Users
+                    .Where(user => user.ID.Equals(userMail))
+                    .FirstOrDefault().Administrator;
+                return AccesLevel;
+            }
+            return "0";
+
+        }
+
+        [HttpPost]
+        [ActionName("GetLoggedInUser")]
+        public string GetLoggedInUser()
+        {
+            string name = HttpContext.Session.GetString("loggedInUser");
+            if(name != null)
+            {
+                return HttpContext.Session.GetString("loggedInUser");
+            }
+            return null;
+        }
+
+        [HttpGet]
+        [ActionName("LogOut")]
+        public IActionResult LogOut()
+        {
+            HttpContext.Session.Remove("loggedInUser");
+            return RedirectToAction("Index", "Home");
         }
     }
+
+
 }

@@ -16,14 +16,16 @@ namespace DonutShop.Context
             {
             }
 
-            protected override void OnModelCreating(ModelBuilder modelBuilder)
-            {
-                base.OnModelCreating(modelBuilder);
-            //modelBuilder.Entity<Product>().ToTable("Products");
-            modelBuilder.Entity<User>().ToTable("Users");
-            }
+        //    protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //    {
+        //        base.OnModelCreating(modelBuilder);
+        //    //modelBuilder.Entity<Product>().ToTable("Products");
+        //    modelBuilder.Entity<User>().ToTable("Users");
+        //    modelBuilder.Entity<Product>().ToTable("Products");
+        //    }
             
             //public DbSet<Product> Products { get; set; }
             public DbSet<User> Users { get; set; }
+        //entititi migratii
         }
 }

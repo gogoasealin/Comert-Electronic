@@ -31,17 +31,10 @@
 </head>
 <body>
 
-    @*<script>
-            var clickHandler = new ClickHandler();
-            var product = clickHandler.getAllProducts();
-            product.done(
-                function (response) {
-                    for (var i = 0; i < response.length; i++) {
-                        var ActionU = '@Url.Action("CurrentProduct", "CurrentProduct")';
-                        $("#productGrid").append('<div style="display: inline-block; padding-right:10px;" class="image-main-section"><form action="http://localhost:50209/api/cart/Add" method="get"><div class="img-part"><div class="img-section"><img src="/images/' + response[i].image + '"></div><div class="image-title"><h3><a class="styleless-link" href="' + ActionU + '?productName=' + response[i].name + '">' + response[i].name + '</a></h3></div><div><input type="hidden" readonly name="gameName" value="' + response[i].name + '"></div> <div class="image-description"><p>$' + response[i].keyPrice + '</p></div><div><input type="submit" class="btn btn-warning add-cart-btn" value="ADD TO CART"></div></form></div>'.replace("PN", response[i].name));
-                    }
-                });
-        </script>*@
+    <script runat="server" type="text/javascript" src="~/js/ClickHandler.js"></script>
+    <script runat="server">
+        GetSignedInUser();
+    </script>
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
@@ -52,8 +45,8 @@
                 <a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
                 <button id="login" type="button" class="w3-button w3-black menuButtons" onclick="document.getElementById('id01').style.display = 'block';">Login</button>
                 <span id="loggedInUser"></span>
-                <a asp-area="" asp-controller="Home" asp-action="AdminPanel" id="admin">AdminPanel</a>
-                <span id="logOut"></span>
+                <a style="display:none" asp-area="" asp-controller="Home" asp-action="AdminPanel" id="admin">AdminPanel</a>
+                <button id="logOut" type="button" class="w3-button w3-black menuButtons" style="display:none" ><a href="@Url.Action("LogOut", "Users")"><span class="glyphicon glyphicon-log-out"> </span></a></button>
             </div>
         </div>
     </nav>
