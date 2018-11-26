@@ -11,7 +11,7 @@ body {
 
 .menuButtons {
     font-size: 20px;
-    text-align: center;
+    text-align: center !important;
     word-spacing: 30px;
     background-color:black;
     color:white;
@@ -36,6 +36,15 @@ body {
 .menuButtons:hover {
     color: gray !important;
     background-color: black !important;
+    text-decoration: none;
+}
+
+.links-color {
+    color: white;
+    text-decoration: none;
+}
+links-color:hover {
+    color: gray;
     text-decoration: none;
 }
 
@@ -169,7 +178,7 @@ a:hover {
 }
 
 .no-padding{
-    padding:0;
+    padding:0 !important;
 }
 
 /* header*/

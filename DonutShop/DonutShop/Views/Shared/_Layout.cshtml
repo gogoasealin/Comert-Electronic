@@ -1,20 +1,10 @@
-﻿@using Microsoft.AspNetCore.Http
-@inject IHttpContextAccessor HttpContextAccessor
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <title>@ViewData["Title"] - DonutShop</title>
 
-
-    <script src="~/lib/signalr/signalr.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cssmapsplugin.com/5/jquery.cssmap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <script src="~/js/ClickHandler.js" asp-append-version="true"></script>
     <environment include="Development">
         <link rel="stylesheet" href="~/css/site.css" />
         <link rel="stylesheet" href="~/css/Body.css" />
@@ -26,82 +16,51 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+        a {
+            color: white;
+            text-decoration: none;
+        }
+
+         a:hover {
+                color: gray;
+                text-decoration: none;
+         }
+    </style>
 </head>
 <body>
-
-    <script runat="server" type="text/javascript" src="~/js/ClickHandler.js"></script>
-    <script runat="server">
-        GetSignedInUser();
-    </script>
-
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <a id="noUnderline" style="position:absolute;" asp-area="" asp-controller="Home" asp-action="Index"> <img src="~/images/118.png"></a>
-            <div class="navbar-collapse collapse menuButtons">
-                <a asp-area="" asp-controller="Home" asp-action="Menu">Menu</a>
-                <a asp-area="" asp-controller="Home" asp-action="ShoppingCart">ShoppingCart</a>
-                <a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
-                <button id="login" type="button" class="w3-button w3-black menuButtons" onclick="document.getElementById('id01').style.display = 'block';">Login</button>
-                <span id="loggedInUser"></span>
-                <a style="display:none" asp-area="" asp-controller="Home" asp-action="AdminPanel" id="admin">AdminPanel</a>
-                <button id="logOut" type="button" class="w3-button w3-black menuButtons" style="display:none" ><a href="@Url.Action("LogOut", "Users")"><span class="glyphicon glyphicon-log-out"> </span></a></button>
+            @*style="text-align:center !important"*@
+            <div class="menuButtons navbar-collapse collapse">
+                    <a asp-area="" asp-controller="Home" asp-action="Menu">Menu</a>
+                    <a asp-area="" asp-controller="Home" asp-action="ShoppingCart">ShoppingCart</a>
+                    <a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
+                    <a style="display:none" asp-area="" asp-controller="Home" asp-action="AdminPanel" id="admin">AdminPanel</a>
+                    @await Html.PartialAsync("_LoginPartial")
             </div>
         </div>
     </nav>
-    <partial name="_CookieConsentPartial" />
-
-    <div class="container-fluid body-content no-padding">
+    <div class="container-fluid body-content" style="padding: 0 !important">
         @RenderBody()
         <hr />
         <footer>
-            <p class="web-text">&copy; 2018 - DonutShop</p>
+            <p>&copy; 2018 - DonutShop</p>
         </footer>
     </div>
 
-    <div class="w3-container">
-
-        <div id="id01" class="w3-modal">
-            <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
-
-                <div class="w3-center">
-                    <br>
-                    <span onclick="document.getElementById('id01').style.display = 'none';" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
-                    <img src="~/images/118.png" alt="Avatar" style="width:30%" class="w3-circle w3-margin-top">
-                </div>
-
-
-                <form class="w3-container" id="loginform">
-                    <div class="w3-section">
-                        <label><b>Username</b></label>
-                        <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Username" name="user" required>
-                        <label><b>Password</b></label>
-                        <input class="w3-input w3-border" type="password" placeholder="Enter Password" name="password" required>
-                        <input type="button" value="Login" onclick="Login();" class="w3-button w3-block w3-green w3-section w3-padding" />
-                    </div>
-                </form>
-                <div id="dialog" title="Window title">
-                </div>
-            </div>
-        </div>
-    </div>
-
-
     <environment include="Development">
-        <link rel="stylesheet" href="~/css/site.css" />
-        <link rel="stylesheet" href="~/css/Body.css" />
-        <script src="~/js/ClickHandler.js" asp-append-version="true"></script>
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
                 asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
                 asp-fallback-test="window.jQuery"
                 crossorigin="anonymous"
-                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+                integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
         </script>
         <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
                 asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
@@ -113,6 +72,5 @@
     </environment>
 
     @RenderSection("Scripts", required: false)
-
 </body>
 </html>

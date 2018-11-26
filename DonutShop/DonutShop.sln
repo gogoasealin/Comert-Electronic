@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.28010.2026
+VisualStudioVersion = 15.0.28010.2050
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DonutShop", "DonutShop\DonutShop.csproj", "{E7C637F6-BD13-4F03-B5E4-62162D7F079F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DonutShop", "DonutShop\DonutShop.csproj", "{9C627C96-6CC3-40CB-9CAE-330FF8BF3292}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E7C637F6-BD13-4F03-B5E4-62162D7F079F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E7C637F6-BD13-4F03-B5E4-62162D7F079F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E7C637F6-BD13-4F03-B5E4-62162D7F079F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E7C637F6-BD13-4F03-B5E4-62162D7F079F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C627C96-6CC3-40CB-9CAE-330FF8BF3292}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C627C96-6CC3-40CB-9CAE-330FF8BF3292}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C627C96-6CC3-40CB-9CAE-330FF8BF3292}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C627C96-6CC3-40CB-9CAE-330FF8BF3292}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {376BF1C9-DD0F-416C-8B7E-ECBE3F9CE177}
+		SolutionGuid = {8214427D-42EF-4F32-88B4-0C8CF75491FB}
 	EndGlobalSection
 EndGlobal
