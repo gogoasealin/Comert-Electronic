@@ -10,18 +10,112 @@
 
     <div class="admin-buttons">
         <p> Products :</p>
-        <a asp-area="" asp-controller="Home" asp-action="AdminPanel"><span class="glyphicon glyphicon-plus"> </span></a>
-        <a asp-area="" asp-controller="Home" asp-action="AdminPanel"><span class="glyphicon glyphicon-minus"> </span></a>
-        <a asp-area="" asp-controller="Home" asp-action="AdminPanel"><span class="glyphicon glyphicon-pencil"> </span></a>
+        <div data-toggle="modal" data-target="#modal-NewProduct"><span class="glyphicon glyphicon-plus"></span> </div>
+        <div data-toggle="modal" data-target="#modal-RemoveProduct"><span class="glyphicon glyphicon-minus"></span> </div>
+        <div data-toggle="modal" data-target="#modal-UpdateProduct"><span class="glyphicon glyphicon-pencil"></span> </div>
 
-        <p> Users :</p>
-        <a asp-area="" asp-controller="Home" asp-action="AdminPanel"><span class="glyphicon glyphicon-plus"> </span></a>
-        <a asp-area="" asp-controller="Home" asp-action="AdminPanel"><span class="glyphicon glyphicon-minus"> </span></a>
-        <a asp-area="" asp-controller="Home" asp-action="AdminPanel"><span class="glyphicon glyphicon-pencil"> </span></a>
+        @*<p> Users :</p>
+        <div data-toggle="modal" data-target="#modal-NewUser"><span class="glyphicon glyphicon-plus"></span> </div>
+        <div data-toggle="modal" data-target="#modal-RemoveUser"><span class="glyphicon glyphicon-minus"></span> </div>
+        <div data-toggle="modal" data-target="#modal-UpdateUser"><span class="glyphicon glyphicon-pencil"></span> </div>*@
 
     </div>
 
+    <div id="modal-NewProduct" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4 class="modal-title" id="hdr-form-customer">New product</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-group" id="addProductForm">
+                        <label>Name</label>
+                        <input type="text" name="Name" id="frm-customer-name" class="form-control">
 
+                        <label>Description</label>
+                        <input type="text" name="Description" id="frm-customer-quantity" class="form-control">
+
+                        <label>Price</label>
+                        <input type="text" name="Price" id="frm-customer-price" class="form-control">
+
+                        <label>Amount</label>
+                        <input type="text" name="Amount" id="frm-customer-image" class="form-control">
+
+                        <label>Image</label>
+                        <input type="text" name="Image" id="frm-customer-image" class="form-control">
+
+                        <div class="clearfix"></div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link pull-left" data-dismiss="modal">Cancel</button>
+                    <button type="button" onclick="AddProduct()" class="btn btn-default btn-success" data-dismiss="modal">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-RemoveProduct" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4 class="modal-title" id="hdr-form-customer">Delete product</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-group" id="removeProductForm">
+                        <label>Name</label>
+                        <input type="text" name="Name" id="frm-customer-name" class="form-control">
+
+                        <div class="clearfix"></div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link pull-left" data-dismiss="modal">Cancel</button>
+                    <button type="button" onclick="RemoveProduct()" class="btn btn-default btn-success" data-dismiss="modal">Remove</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-UpdateProduct" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4 class="modal-title" id="hdr-form-customer">Update product</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-group" id="updateProductForm">
+                        <label>Product Name</label>
+                        <input type="text" name="Name" id="frm-customer-name" class="form-control">
+
+                        <label>Product New Name</label>
+                        <input type="text" name="Name" id="frm-customer-name" class="form-control">
+
+                        <label>Product New Description</label>
+                        <input type="text" name="Description" id="frm-customer-quantity" class="form-control">
+
+                        <label>Product New Price</label>
+                        <input type="text" name="Price" id="frm-customer-price" class="form-control">
+
+                        <label>Product New Amount</label>
+                        <input type="text" name="Amount" id="frm-customer-image" class="form-control">
+
+                        <label>Product New Image</label>
+                        <input type="text" name="Image" id="frm-customer-image" class="form-control">
+
+                        <div class="clearfix"></div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link pull-left" data-dismiss="modal">Cancel</button>
+                    <button type="button" onclick="UpdateProduct()" class="btn btn-default btn-success" data-dismiss="modal">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 </body>

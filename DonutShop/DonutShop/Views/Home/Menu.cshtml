@@ -5,68 +5,28 @@
 <p>Use this area to provide additional information.</p>
 <!DOCTYPE html>
 <html>
-@*<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>@ViewData["Title"] - DonutShop</title>
-
-    <environment include="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-        <link rel=  "stylesheet" href="~/css/site.css" />
-        <link rel="stylesheet" href="~/css/Body.css" />
-    </environment>
-    <environment exclude="Development">
-        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-    </environment>
-</head>*@
-
 
 <body>
-    <div id="productGrid">
-        <form action="http://localhost:50209/api/cart/Add" method="get">
-            <div>
-                <div class="ProductImage"><img src="~/images/Donut-cu-Lamaie.jpg"></div>
-                <div class="ProductTitle"><p>title</p></div>
-                @* class="container-fluid body-content" style="margin-left: 100px"*@
-                @*<div><input type="hidden" readonly name="gameName" value=" Menu "></div> *@
-                <div class="ProductIngredients"><p>Ingrediente</p></div>
-                <div class="ProductPrice"><p>Pret</p></div>
-                <div class="ProductTitle"><input type="submit" class="btn btn-warning add-cart-btn" value="ADD TO CART"></div>
-            </div>
+    <div class="container" >
+        <form class="search-button" style="margin-left:300px">
+            <input type="text" placeholder="Search product" name="search">
+            <button type="submit" onclick="Search()"><i class="fa fa-search"></i></button>
         </form>
     </div>
 
-    <div id="productGrid">
-        <form action="http://localhost:50209/api/cart/Add" method="get">
-            <div>
-                <div class="ProductImage"><img src="~/images/donuterie-tiramisu-500x500.jpg"></div>
-                <div class="ProductTitle"><p>title</p></div>
-                @* class="container-fluid body-content" style="margin-left: 100px"*@
-                @*<div><input type="hidden" readonly name="gameName" value=" Menu "></div> *@
-                <div class="ProductIngredients"><p>Ingrediente</p></div>
-                <div class="ProductPrice"><p>Pret</p></div>
-                <div class="ProductTitle"><input type="submit" class="btn btn-warning " value="ADD TO CART"></div>
-            </div>
-        </form>
-    </div>
-    <div id="productGrid">
-        <form action="http://localhost:50209/api/cart/Add" method="get">
-            <div>
-                <div class="ProductImage"><img src="~/images/donuterie-kiddo-donut.jpg"></div>
-                <div class="ProductTitle"><p>title</p></div>
-                @* class="container-fluid body-content" style="margin-left: 100px"*@
-                @*<div><input type="hidden" readonly name="gameName" value=" Menu "></div> *@
-                <div class="ProductIngredients"><p>Ingrediente</p></div>
-                <div class="ProductPrice"><p>Pret</p></div>
-                <div class="ProductTitle"><input type="submit" class="btn btn-warning add-cart-btn" value="ADD TO CART"></div>
-            </div>
-        </form>
-    </div>
 
+    <div id="productGrid">
+        @foreach (var product in ViewBag.Products)
+        {
+            <div class="product col-md-4" style="text-align:center">
+                <div class="ProductImage"><img src="@product.ProductImage" /></div>
+                <div class="ProductTitle"><p class="productName">@product.ProductName</p></div>
+                <div class="ProductIngredients"><p>@product.ProductDescription</p></div>
+                <div class="ProductPrice"><p>@product.ProductPrice</p></div>
+                <button class="add-cart-button btn btn-warning">Add To Cart</button>
+            </div>
+        }
+    </div>
 
 </body>
 </html>

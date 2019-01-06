@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using DonutShop.Models;
+using DonutShop.Models.Product;
 
 namespace DonutShop.Data
 {
@@ -22,5 +23,8 @@ namespace DonutShop.Data
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
         }
+
+        public DbSet<Product> Product { get; set; }
+        public DbSet<CartItem> ShoppingCartItem { get; set; }
     }
 }

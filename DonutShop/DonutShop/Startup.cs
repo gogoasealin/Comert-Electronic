@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Http;
 using DonutShop.Data;
 using DonutShop.Models;
 using DonutShop.Services;
@@ -36,9 +37,11 @@ namespace DonutShop
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
-
-            services.AddMvc();
-
+        
+            services.AddMvc()
+                .AddJsonOptions(options => { options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore; });
+            services.AddDistributedMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

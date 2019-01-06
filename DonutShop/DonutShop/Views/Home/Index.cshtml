@@ -9,40 +9,20 @@
     <div class="container-fluid " style="padding: 0 !important">
         <img src="~/images/wallpaper.jpg" style="width:100%;">
     </div>
-        <div id="productGrid" class="row" style="display:inline-block">
-            <form action="http://localhost:50209/api/cart/Add" method="get" class="col-md-4">
-                <div style="display:inline-block">
-                    <div class="ProductImage"><img src="~/images/Donut-cu-Lamaie.jpg"></div>
-                    <div class="ProductTitle"><p>title</p></div>
-                    @* class="container-fluid body-content" style="margin-left: 100px"*@
-                    @*<div><input type="hidden" readonly name="gameName" value=" Menu "></div> *@
-                    <div class="ProductIngredients"><p>Ingrediente</p></div>
-                    <div class="ProductPrice"><p>Pret</p></div>
-                    <div class="ProductTitle"><input type="submit" class="btn btn-warning add-cart-btn" value="ADD TO CART"></div>
-                </div>
-            </form>
 
-            <form action="http://localhost:50209/api/cart/Add" method="get" class="col-md-4">
-                <div>
-                    <div class="ProductImage"><img src="~/images/donuterie-tiramisu-500x500.jpg"></div>
-                    <div class="ProductTitle"><p>title</p></div>
-                    <div class="ProductIngredients"><p>Ingrediente</p></div>
-                    <div class="ProductPrice"><p>Pret</p></div>
-                    <div class="ProductTitle"><input type="submit" class="btn btn-warning " value="ADD TO CART"></div>
+    <div id="productGrid">
+        <div class="container">
+            @foreach (var product in ViewBag.Products)
+            {
+                <div class="product col-md-4" style="text-align:center">
+                    <div class="ProductImage"><img src="@product.ProductImage" /></div>
+                    <div class="ProductTitle"><p class="productName">@product.ProductName</p></div>
+                    <div class="ProductIngredients"><p>@product.ProductDescription</p></div>
+                    <div class="ProductPrice"><p>@product.ProductPrice</p></div>
                 </div>
-            </form>
-
-            <form action="http://localhost:50209/api/cart/Add" method="get" class="col-md-4">
-                <div>
-                    <div class="ProductImage"><img src="~/images/donuterie-kiddo-donut.jpg"></div>
-                    <div class="ProductTitle"><p>title</p></div>
-                    <div class="ProductIngredients"><p>Ingrediente</p></div>
-                    <div class="ProductPrice"><p>Pret</p></div>
-                    <div class="ProductTitle"><input type="submit" class="btn btn-warning add-cart-btn" value="ADD TO CART"></div>
-                </div>
-            </form>
+            }
         </div>
-    
+    </div>
 </body>
 
 </html>
