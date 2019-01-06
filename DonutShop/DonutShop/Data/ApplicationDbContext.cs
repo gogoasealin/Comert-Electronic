@@ -25,6 +25,6 @@ namespace DonutShop.Data
         }
 
         public DbSet<Product> Product { get; set; }
-        public DbSet<CartItem> ShoppingCartItem { get; set; }
+        public DbSet<CartItem> CartItem { get; set; }
     }
 }

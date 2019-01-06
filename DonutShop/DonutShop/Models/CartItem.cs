@@ -10,17 +10,17 @@ namespace DonutShop.Models
     public class CartItem
     {
         [Key]
-
-        public string CartId { get; set; }
+        public int ID { get; set; }
+        public string CartName { get; set; }
         public string ProductName { get; set; }
         public string Quantity { get; set; }
         public string ProductPrice { get; set; }
 
         private CartItem() {; }
 
-        public CartItem(string CartId, string ProductName, string Quantity, string ProductPrice)
+        public CartItem(string CartName, string ProductName, string Quantity, string ProductPrice)
         {
-            this.CartId = CartId;
+            this.CartName = CartName;
             this.ProductName = ProductName;
             this.Quantity = Quantity;
             this.ProductPrice = ProductPrice;

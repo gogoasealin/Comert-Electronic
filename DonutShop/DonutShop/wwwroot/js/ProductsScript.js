@@ -106,10 +106,23 @@ function UpdateProduct() {
     );
 }
 
-function AddToCart()
+function AddToCart(productName, price)
 {
+    var cartName = document.getElementById("userName").innerText;
+    var data = {
+        cartName: cartName,
+        productName: productName,
+        price: price
+    };
 
+    data = JSON.stringify(data);
+    data = JSON.parse(data);
+
+    url = 'https://localhost:44398/api/ShoppingCart/AddProduct';
+
+    var result = postRequest(data, url);
 }
+
 
 
 

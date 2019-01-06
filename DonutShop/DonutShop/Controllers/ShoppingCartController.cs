@@ -1,0 +1,46 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using DonutShop.Data;
+using DonutShop.Models;
+using Microsoft.AspNetCore.Mvc;
+
+namespace DonutShop.Controllers
+{
+
+    [Route("api/[controller]/[action]")]
+    public class ShoppingCartController : Controller
+    {
+
+        ApplicationDbContext db;
+
+        public ShoppingCartController(ApplicationDbContext db)
+        {
+            this.db = db;
+        }
+
+        [HttpPost]
+        [ActionName("AddProduct")]
+        public String AddProduct([FromBody] dynamic productToAdd)
+        {
+            //try
+            //{
+                String newCartName = productToAdd["cartName"].ToString();
+                String newProductName = productToAdd["productName"].ToString();
+                String newQuantity = "1";
+                String newPrice = productToAdd["price"].ToString();
+
+                CartItem cartItem = new CartItem(newCartName, newProductName, newQuantity, newPrice);
+                db.CartItem.Add(cartItem);
+                db.SaveChanges();
+
+                return "Succes";
+            //}
+            //catch (Exception e)
+            //{
+            //    return e.ToString();
+            //}
+        }
+    }
+}

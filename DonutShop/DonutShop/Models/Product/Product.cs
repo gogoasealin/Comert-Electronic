@@ -19,8 +19,7 @@ namespace DonutShop.Models.Product
         private Product() {;}
 
         public Product(string ProductName, string ProductDescription, string ProductPrice, int ProductAmount, string ProductImage)
-        {
-           
+        {        
             this.ProductName = ProductName;
             this.ProductDescription = ProductDescription;
             this.ProductPrice = ProductPrice;

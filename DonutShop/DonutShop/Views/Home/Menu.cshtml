@@ -5,16 +5,17 @@
 <p>Use this area to provide additional information.</p>
 <!DOCTYPE html>
 <html>
-
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 <body>
-    <div class="container" >
+    <div class="container">
         <form class="search-button" style="margin-left:300px">
             <input type="text" placeholder="Search product" name="search">
             <button type="submit" onclick="Search()"><i class="fa fa-search"></i></button>
         </form>
     </div>
 
-
+    <span id="userName" style="display:none">@UserManager.GetUserName(User)</span>
     <div id="productGrid">
         @foreach (var product in ViewBag.Products)
         {
@@ -23,7 +24,7 @@
                 <div class="ProductTitle"><p class="productName">@product.ProductName</p></div>
                 <div class="ProductIngredients"><p>@product.ProductDescription</p></div>
                 <div class="ProductPrice"><p>@product.ProductPrice</p></div>
-                <button class="add-cart-button btn btn-warning">Add To Cart</button>
+                <button class="add-cart-button btn btn-warning" onclick="AddToCart(@product.ProductName, @product.ProductPrice)">Add To Cart</button>
             </div>
         }
     </div>
