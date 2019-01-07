@@ -1,15 +1,15 @@
 ﻿@{
-    ViewData["Title"] = "AdminPanel";
+    ViewData["Title"] = "ShoppingCart";
 }
-<h2>@ViewData["Title"]</h2>
 
 <!DOCTYPE html>
 <html>
-
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 <body>
 
 
-    <div class="container">
+    <div class="container" style="padding-top:5%">
         <div class="row">
             <div class="col-sm-12 col-md-10 col-md-offset-1">
                 <table style="color:black" class="table">
@@ -22,14 +22,20 @@
                             <th> </th>
                         </tr>
                     </thead>
+                    <span id="userName" style="display:none">@UserManager.GetUserName(User)</span>
                     <tbody id="cartProducts">
-                        <tr>
-                            <th>1</th>
-                            <th>2</th>
-                            <th>3</th>
-                            <th>4</th>
-                            <th>5</th>
-                        </tr>
+                        @foreach (var cartProducts in ViewBag.cartProducts)
+                        {
+                            @if (@cartProducts.CartName == @UserManager.GetUserName(User))
+                            {
+                                <tr>
+                                    <th>@cartProducts.ProductName</th>
+                                    <th>@cartProducts.Quantity</th>
+                                    <th>@cartProducts.ProductPrice</th>
+                                    <th><button class="add-cart-button btn btn-danger" onclick="RemoveFromCart(@cartProducts.ProductName)">X</button></th>
+                                </tr>
+                            }
+                        }
                     </tbody>
 
                     <tfoot>
@@ -43,11 +49,7 @@
                             <td>   </td>
                             <td>   </td>
                             <td>   </td>
-                            <td>
-                                <button type="button" class="btn btn-default" onclick="goBack()">
-                                    <span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping
-                                </button>
-                            </td>
+                            <td>   </td>
                             <td>
                                 <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#Checkout">
                                     Checkout <span class="glyphicon glyphicon-play"></span>

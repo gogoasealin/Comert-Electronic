@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DonutShop.Controllers
 {
-
     [Route("api/[controller]/[action]")]
     public class ShoppingCartController : Controller
     {
@@ -18,14 +17,15 @@ namespace DonutShop.Controllers
         public ShoppingCartController(ApplicationDbContext db)
         {
             this.db = db;
+
         }
 
         [HttpPost]
         [ActionName("AddProduct")]
         public String AddProduct([FromBody] dynamic productToAdd)
         {
-            //try
-            //{
+            try
+            {
                 String newCartName = productToAdd["cartName"].ToString();
                 String newProductName = productToAdd["productName"].ToString();
                 String newQuantity = "1";
@@ -36,11 +36,37 @@ namespace DonutShop.Controllers
                 db.SaveChanges();
 
                 return "Succes";
-            //}
-            //catch (Exception e)
-            //{
-            //    return e.ToString();
-            //}
+            }
+            catch (Exception e)
+            {
+                return e.ToString();
+            }
         }
+
+
+        [HttpDelete]
+        [ActionName("RemoveProduct")]
+        public String RemoveProduct([FromBody] dynamic productToRemove)
+        {
+            try
+            {
+                string cartName = productToRemove["cartName"].ToString();
+                String productName = productToRemove["productName"].ToString();
+
+                var prod = db.CartItem.Where(product => product.CartName == cartName).Where(product => product.ProductName == productName).ToList().FirstOrDefault();
+                if (prod != null)
+                {
+                    db.CartItem.Remove(prod);
+                    db.SaveChanges();
+                    return "Succes";
+                }
+                return "Product not found";
+            }
+            catch (Exception e)
+            {
+                return e.ToString();
+            }
+        }
+
     }
 }

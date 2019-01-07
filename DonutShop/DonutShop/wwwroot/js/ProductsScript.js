@@ -121,9 +121,43 @@ function AddToCart(productName, price)
     url = 'https://localhost:44398/api/ShoppingCart/AddProduct';
 
     var result = postRequest(data, url);
+    result.done(
+        function (response) {
+            if (response === "Success") {
+                alert("Product added to ShoppingCart");
+            }
+            else {
+                alert(response);
+            }
+        }
+    );
 }
 
+function RemoveFromCart(productName)
+{
+    var cartName = document.getElementById("userName").innerText;
+    var data = {
+        cartName: cartName ,
+        productName: productName
+    };
 
+    data = JSON.stringify(data);
+    data = JSON.parse(data);
+
+    url = 'https://localhost:44398/api/ShoppingCart/RemoveProduct';
+
+    var result = deleteRequest(data, url);
+    result.done(
+        function (response) {
+            if (response === "Success") {
+                alert("Product added to ShoppingCart");
+            }
+            else {
+                alert(response);
+            }
+        }
+    );
+}
 
 
 function GetProducts() {

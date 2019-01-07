@@ -36,6 +36,7 @@ namespace DonutShop.Controllers
 
         public IActionResult ShoppingCart()
         {
+            GetCartProducts();
             return View();
         }
 
@@ -61,6 +62,15 @@ namespace DonutShop.Controllers
             var products = db.Product.ToList();
 
             ViewBag.Products = products;
+        }
+
+        [HttpGet]
+        [ActionName("GetCartProducts")]
+        public void GetCartProducts()
+        {
+            var products = db.CartItem.ToList();
+
+            ViewBag.CartProducts = products;
         }
 
         public IActionResult Error()

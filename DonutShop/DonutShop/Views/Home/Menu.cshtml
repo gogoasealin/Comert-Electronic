@@ -2,7 +2,6 @@
     ViewData["Title"] = "Menu";
 }
 
-<p>Use this area to provide additional information.</p>
 <!DOCTYPE html>
 <html>
 @inject SignInManager<ApplicationUser> SignInManager
@@ -24,7 +23,7 @@
                 <div class="ProductTitle"><p class="productName">@product.ProductName</p></div>
                 <div class="ProductIngredients"><p>@product.ProductDescription</p></div>
                 <div class="ProductPrice"><p>@product.ProductPrice</p></div>
-                <button class="add-cart-button btn btn-warning" onclick="AddToCart(@product.ProductName, @product.ProductPrice)">Add To Cart</button>
+                <button class="add-cart-button btn btn-warning" onclick="AddToCart('@product.ProductName', @product.ProductPrice)">Add To Cart</button>
             </div>
         }
     </div>
