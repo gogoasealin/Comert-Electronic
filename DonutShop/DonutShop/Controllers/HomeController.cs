@@ -28,8 +28,6 @@ namespace DonutShop.Controllers
 
         public IActionResult Menu()
         {
-            //ViewData["Message"] = "Your application description page.";
-            //return View("Index"); sau daca e gol numele functiei
             GetProducts();
             return View();
         }
@@ -37,6 +35,7 @@ namespace DonutShop.Controllers
         public IActionResult ShoppingCart()
         {
             GetCartProducts();
+            GetTotal();
             return View();
         }
 
@@ -71,6 +70,25 @@ namespace DonutShop.Controllers
             var products = db.CartItem.ToList();
 
             ViewBag.CartProducts = products;
+        }
+
+
+        [HttpGet]
+        [ActionName("GetTotal")]
+        public void GetTotal()
+        {
+            var products = db.CartItem.ToList();
+            float total = 0;
+            var user = HttpContext.User.Identity.Name;
+            foreach ( CartItem prods in products)
+            {
+                if (prods.CartName == user)
+                {
+                    total += float.Parse(prods.ProductPrice.ToString());
+                }
+            }
+
+            ViewBag.Total = total;
         }
 
         public IActionResult Error()

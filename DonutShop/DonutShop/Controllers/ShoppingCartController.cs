@@ -68,5 +68,30 @@ namespace DonutShop.Controllers
             }
         }
 
+        [HttpDelete]
+        [ActionName("Checkout")]
+        public String Checkout([FromBody] dynamic productToRemove)
+        {
+            try
+            {
+                string cartName = productToRemove["cartName"].ToString();
+
+                var prod = db.CartItem.Where(product => product.CartName == cartName).ToList();
+                if (prod != null)
+                {
+                    foreach(CartItem ci in prod)
+                    {
+                        db.CartItem.Remove(ci);
+                    }
+                    db.SaveChanges();
+                    return "Succes";
+                }
+                return "Product not found";
+            }
+            catch (Exception e)
+            {
+                return e.ToString();
+            }
+        }
     }
 }

@@ -2,7 +2,7 @@
     return $.ajax({
         type: "POST",
         url: url,
-        dataType: "text",
+        //dataType: "text",
         contentType: "application/json",
         data: JSON.stringify(data),
 
@@ -149,8 +149,9 @@ function RemoveFromCart(productName)
     var result = deleteRequest(data, url);
     result.done(
         function (response) {
-            if (response === "Success") {
-                alert("Product added to ShoppingCart");
+            if (response === "Succes") {
+                location.reload();
+                //alert("Product added to ShoppingCart");
             }
             else {
                 alert(response);
@@ -165,8 +166,30 @@ function GetProducts() {
     getRequest(url);
 }
 
-function AppendProducts() {
+function Checkout() {
+    var cartName = document.getElementById("userName").innerText;
+    var product = $('#addProductForm').serializeArray();
+    var data = {
+        product: product,
+        cartName: cartName
+    };
+    data = JSON.stringify(data);
+    data = JSON.parse(data);
 
+    url = 'https://localhost:44398/api/ShoppingCart/Checkout';
+
+    var result = deleteRequest(data, url);
+    result.done(
+        function (response) {
+            if (response == "Success") {
+                location.reload();
+                //alert("Checkout sent");
+            }
+            else {
+                alert(response);
+            }
+        }
+    );
 }
 
 $(document).ready(function () {
@@ -178,5 +201,22 @@ $(document).ready(function () {
 
 
 function Search() {
+    var data = $('#search').serializeArray();
+    data = JSON.stringify(data);
+    data = JSON.parse(data);
 
+    var url = 'https://localhost:44398/api/Menu/Search';
+
+    var result = postRequest(data, url);
+    result.done(
+        function (response) {
+            $('#productContainer').html("");
+            var a = response.length;
+            for (var i = 0; i < response.length; i++) {
+                $('#productContainer').append('<div class="product col-md-4" style="text-align:center"><div class="ProductImage"><img src=' + response[i].productImage + ' /></div><div class="ProductTitle" > <p class="productName">' + response[i].productName + '</p></div > <div class="ProductIngredients"><p>' + response[i].productDescription + '</p></div> <div class="ProductPrice"><p>' + response[i].productPrice + '</p></div><button class="add-cart-button btn btn-warning" onclick="AddToCart(' + response[i].productName + ',' + response[i].productPrice + ')">Add To Cart</button></div > ');
+            }
+        }
+    );
+
+    return false;
 }
