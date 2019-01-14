@@ -59,7 +59,7 @@ function AddProduct() {
     var result = postRequest(data, url);
     result.done(
         function (response) {
-            if (response === "Success") {
+            if (response === "Succes") {
                 document.getElementById('add-product').style.display = "none";
             }
             else {
@@ -77,7 +77,7 @@ function RemoveProduct() {
     var result = deleteRequest(data, url);
     result.done(
         function (response) {
-            if (response === "Success") {
+            if (response === "Succes") {
                 alert("Product deleted");
                 //document.getElementById('remove-product').style.display = "none";
             }
@@ -96,7 +96,7 @@ function UpdateProduct() {
     var result = updateRequest(data, url);
     result.done(
         function (response) {
-            if (response === "Success") {
+            if (response === "Succes") {
                 alert("Product updated");
             }
             else {
@@ -123,7 +123,7 @@ function AddToCart(productName, price)
     var result = postRequest(data, url);
     result.done(
         function (response) {
-            if (response === "Success") {
+            if (response === "Succes") {
                 alert("Product added to ShoppingCart");
             }
             else {
@@ -181,7 +181,7 @@ function Checkout() {
     var result = deleteRequest(data, url);
     result.done(
         function (response) {
-            if (response == "Success") {
+            if (response === "Succes") {
                 location.reload();
                 //alert("Checkout sent");
             }
@@ -220,3 +220,4 @@ function Search() {
 
     return false;
 }
+
