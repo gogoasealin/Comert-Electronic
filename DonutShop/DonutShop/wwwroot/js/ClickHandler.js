@@ -32,7 +32,7 @@ function DialogBox() {
     $("#dialog").append('<form class="w3-container" id="loginform"><div class="w3-section"><label><b>The Account donut exist do you want to create one ?</b></label><input type="button" value="Yes" onclick="Register();" class="w3-button w3-block w3-green w3-section w3-padding" /></div></form>');
 }
 
-function Post(data, url) {
+async function Post(data, url) {
     return $.ajax({
         type: "POST",
         url: url,

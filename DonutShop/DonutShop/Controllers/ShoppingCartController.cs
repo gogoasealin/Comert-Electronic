@@ -24,23 +24,33 @@ namespace DonutShop.Controllers
         [ActionName("AddProduct")]
         public String AddProduct([FromBody] dynamic productToAdd)
         {
-            try
-            {
+  //          try
+  //          {       
                 String newCartName = productToAdd["cartName"].ToString();
                 String newProductName = productToAdd["productName"].ToString();
                 String newQuantity = "1";
                 String newPrice = productToAdd["price"].ToString();
 
-                CartItem cartItem = new CartItem(newCartName, newProductName, newQuantity, newPrice);
-                db.CartItem.Add(cartItem);
-                db.SaveChanges();
+                CartItem check = db.CartItem.Where(product => product.ProductName.Equals(newProductName)).ToList().FirstOrDefault();
 
+                if (check == null)
+                {
+                    CartItem cartItem = new CartItem(newCartName, newProductName, newQuantity, newPrice);
+                    db.CartItem.Add(cartItem);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    check.Quantity = (int.Parse(check.Quantity) + 1).ToString();
+                    check.ProductPrice = (float.Parse(check.ProductPrice) * int.Parse(check.Quantity)).ToString();
+                }
+                db.SaveChanges();
                 return "Succes";
-            }
-            catch (Exception e)
-            {
-                return e.ToString();
-            }
+    //        }
+    //        catch (Exception e)
+    //        {
+    //            return e.ToString();
+    //        }
         }
 
 

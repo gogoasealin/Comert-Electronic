@@ -55,12 +55,12 @@ function AddProduct() {
     var data = JSON.stringify($('#addProductForm').serializeArray());
     data = JSON.parse(data);
 
-    url = 'https://localhost:44398/api/Products/AddProduct';
+    url = 'https://localhost:44317/api/Products/AddProduct';
     var result = postRequest(data, url);
     result.done(
         function (response) {
             if (response === "Succes") {
-                document.getElementById('add-product').style.display = "none";
+               // document.getElementById('add-product').style.display = "none";
             }
             else {
                 alert(response);
@@ -73,7 +73,7 @@ function RemoveProduct() {
     var data = JSON.stringify($('#removeProductForm').serializeArray());
     data = JSON.parse(data);
 
-    url = 'https://localhost:44398/api/Products/RemoveProduct';
+    url = 'https://localhost:44317/api/Products/RemoveProduct';
     var result = deleteRequest(data, url);
     result.done(
         function (response) {
@@ -92,7 +92,7 @@ function UpdateProduct() {
     var data = JSON.stringify($('#updateProductForm').serializeArray());
     data = JSON.parse(data);
 
-    url = 'https://localhost:44398/api/Products/UpdateProduct';
+    url = 'https://localhost:44317/api/Products/UpdateProduct';
     var result = updateRequest(data, url);
     result.done(
         function (response) {
@@ -118,7 +118,7 @@ function AddToCart(productName, price)
     data = JSON.stringify(data);
     data = JSON.parse(data);
 
-    url = 'https://localhost:44398/api/ShoppingCart/AddProduct';
+    url = 'https://localhost:44317/api/ShoppingCart/AddProduct';
 
     var result = postRequest(data, url);
     result.done(
@@ -144,7 +144,7 @@ function RemoveFromCart(productName)
     data = JSON.stringify(data);
     data = JSON.parse(data);
 
-    url = 'https://localhost:44398/api/ShoppingCart/RemoveProduct';
+    url = 'https://localhost:44317/api/ShoppingCart/RemoveProduct';
 
     var result = deleteRequest(data, url);
     result.done(
@@ -162,7 +162,7 @@ function RemoveFromCart(productName)
 
 
 function GetProducts() {
-    url = 'https://localhost:44398/api/Products/GetProducts';
+    url = 'https://localhost:44317/api/Products/GetProducts';
     getRequest(url);
 }
 
@@ -176,7 +176,7 @@ function Checkout() {
     data = JSON.stringify(data);
     data = JSON.parse(data);
 
-    url = 'https://localhost:44398/api/ShoppingCart/Checkout';
+    url = 'https://localhost:44317/api/ShoppingCart/Checkout';
 
     var result = deleteRequest(data, url);
     result.done(
@@ -205,7 +205,7 @@ function Search() {
     data = JSON.stringify(data);
     data = JSON.parse(data);
 
-    var url = 'https://localhost:44398/api/Menu/Search';
+    var url = 'https://localhost:44317/api/Menu/Search';
 
     var result = postRequest(data, url);
     result.done(

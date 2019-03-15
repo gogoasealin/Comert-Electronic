@@ -84,7 +84,7 @@ namespace DonutShop.Controllers
             {
                 if (prods.CartName == user)
                 {
-                    total += float.Parse(prods.ProductPrice.ToString());
+                    total += float.Parse(prods.ProductPrice);
                 }
             }
 

@@ -11,16 +11,20 @@
     </div>
 
     <div id="productGrid">
-            @foreach (var product in ViewBag.Products)
-            {
-                <div class="product col-md-4" style="text-align:center">
-                    <div class="ProductImage"><img src="@product.ProductImage" /></div>
-                    <div class="ProductTitle"><p class="productName">@product.ProductName</p></div>
-                    <div class="ProductIngredients"><p>@product.ProductDescription</p></div>
-                    <div class="ProductPrice"><p>@product.ProductPrice</p></div>
-                </div>
-            }
+        @foreach (var product in ViewBag.Products)
+        {
+            <div class="product col-md-4" style="text-align:center">
+                <div class="ProductImage"><img src="@product.ProductImage" /></div>
+                <div class="ProductTitle"><p class="productName">@product.ProductName</p></div>
+                <div class="ProductIngredients"><p>@product.ProductDescription</p></div>
+                <div class="ProductPrice"><p>@product.ProductPrice</p></div>
+            </div>
+        }
     </div>
+    <audio controls autoplay loop style="display:none">
+        <source src="~/audio/audio.mp3" type="audio/mpeg">
+    </audio>
+
 </body>
 
 </html>
