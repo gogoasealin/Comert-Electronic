@@ -23,21 +23,19 @@
                         </tr>
                     </thead>
 
-                    <tbody id="cartProducts">
+                    <tbody class="cartProducts">
                         @foreach (var cartProducts in ViewBag.cartProducts)
                         {
                             @if (@cartProducts.CartName == @UserManager.GetUserName(User))
                             {
                                 <tr>
-                                    <th>@cartProducts.ProductName</th>
-                                    <th>@cartProducts.Quantity</th>
-                                    <th>@cartProducts.ProductPrice</th>
-                                    <th><button class="add-cart-button btn btn-danger" onclick="RemoveFromCart('@cartProducts.ProductName')">X</button></th>
+                                    <td><span id="productName"> @cartProducts.ProductName </span></td>
+                                    <td><input class="quantity" type="number" name="quantity" value="@cartProducts.Quantity" onchange="UpdateQuantity('@cartProducts.ProductName', this.value)" id="quantity" /></td>
+                                    <td>@cartProducts.ProductPrice</td>
+                                    <td><button class="add-cart-button btn btn-danger" onclick="RemoveFromCart('@cartProducts.ProductName')">X</button></td>
                                 </tr>
                             }
                         }
-
-
                     </tbody>
 
 

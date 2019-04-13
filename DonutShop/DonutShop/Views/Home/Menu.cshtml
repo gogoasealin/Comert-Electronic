@@ -7,10 +7,12 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 <body>
+
+
     <div class="container">
-        <form class="search-button" id="search" style="margin-left:300px">
-            <input type="text" id="search" placeholder="Search product" name="search">
-            <button type="button" onclick="Search()"><i class="fa fa-search"></i></button>
+        <form class="search-button" autocomplete="off" id="searchForm" style="margin-left:300px">
+             <input type="text" id="search" placeholder="Search product" name="search">
+             <button type="button" onclick="Search()"><i class="fa fa-search"></i></button>
         </form>
     </div>
 

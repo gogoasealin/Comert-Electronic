@@ -28,5 +28,13 @@ namespace DonutShop.Controllers
             return products.AsEnumerable();
         }
 
+        [HttpGet]
+        [ActionName("AutoComplete")]
+        public List<string> AutoComplete()
+        {
+            var names = db.Product.Select(p => p.ProductName).ToList();
+            return names;
+        }
+
     }
 }
